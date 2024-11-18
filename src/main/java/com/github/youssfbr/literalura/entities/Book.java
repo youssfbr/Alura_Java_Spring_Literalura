@@ -1,5 +1,6 @@
 package com.github.youssfbr.literalura.entities;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -25,17 +26,18 @@ public class Book {
 
     private List<String> languages;
 
-    private Integer download_count;
+    @JsonAlias("download_count")
+    private Integer downloadCount;
 
     @ManyToOne
     private Data dados;
 
     public Book() {}
 
-    public Book(Long id , String title , Integer download_count , Data data) {
+    public Book(Long id , String title , Integer downloadCount , Data data) {
         this.id = id;
         this.title = title;
-        this.download_count = download_count;
+        this.downloadCount = downloadCount;
         this.dados = data;
     }
 
@@ -44,7 +46,7 @@ public class Book {
     }
 
     public void setId(Long id) {
-        this.id = null;//id;
+        this.id = null;
     }
 
     public String getTitle() {
@@ -71,12 +73,12 @@ public class Book {
         this.languages = languages;
     }
 
-    public Integer getDownload_count() {
-        return download_count;
+    public Integer getDownloadCount() {
+        return downloadCount;
     }
 
-    public void setDownload_count(Integer download_count) {
-        this.download_count = download_count;
+    public void setDownloadCount(Integer downloadCount) {
+        this.downloadCount = downloadCount;
     }
 
     public Data getDados() {
@@ -94,7 +96,7 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", authors=" + authors +
                 ", languages=" + languages +
-                ", download_count=" + download_count +
+                ", download_count=" + downloadCount +
                 ", dados=" + dados +
                 '}';
     }

@@ -1,6 +1,7 @@
 package com.github.youssfbr.literalura.services;
 
 import com.github.youssfbr.literalura.entities.Data;
+import com.github.youssfbr.literalura.repositories.IDataRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,9 +10,9 @@ import java.util.List;
 @Service
 public class DadosService implements IDadosService {
 
-    private final IDadosRepository dadosRepository;
+    private final IDataRepository dadosRepository;
 
-    public DadosService(IDadosRepository dadosRepository) {
+    public DadosService(IDataRepository dadosRepository) {
         this.dadosRepository = dadosRepository;
     }
 
