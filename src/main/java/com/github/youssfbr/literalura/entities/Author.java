@@ -1,5 +1,6 @@
 package com.github.youssfbr.literalura.entities;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -15,16 +16,20 @@ public class Author {
     private Long id;
 
     private String name;
-    private Integer birth_year;
-    private Integer death_year;
+    @JsonAlias("birth_year") private Integer birthYear;
+    @JsonAlias("death_year") private Integer deathYear;
+
+    @ManyToMany(mappedBy = "authors")
+    private final Set<Book> books = new HashSet<>();
+
 
     public Author() {}
 
-    public Author(Long id , String name , Integer birth_year , Integer death_year) {
+    public Author(Long id , String name , Integer birthYear , Integer deathYear) {
         this.id = id;
         this.name = name;
-        this.birth_year = birth_year;
-        this.death_year = death_year;
+        this.birthYear = birthYear;
+        this.deathYear = deathYear;
     }
 
     public Long getId() {
@@ -43,21 +48,26 @@ public class Author {
         this.name = name;
     }
 
-    public Integer getBirth_year() {
-        return birth_year;
+    public Integer getBirthYear() {
+        return birthYear;
     }
 
-    public void setBirth_year(Integer birth_year) {
-        this.birth_year = birth_year;
+    public void setBirthYear(Integer birthYear) {
+        this.birthYear = birthYear;
     }
 
-    public Integer getDeath_year() {
-        return death_year;
+    public Integer getDeathYear() {
+        return deathYear;
     }
 
-    public void setDeath_year(Integer death_year) {
-        this.death_year = death_year;
+    public void setDeathYear(Integer deathYear) {
+        this.deathYear = deathYear;
     }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
 
     @Override
     public String toString() {
@@ -77,4 +87,5 @@ public class Author {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
 }
