@@ -46,9 +46,15 @@ public class ApplicationMenu {
                 case 4 -> findLivingAuthorsByYear();
                 case 5 -> findBooksByLanguage();
                 case 6 -> findAuthorByName();
+                case 7 -> findTop10ByOrderByDownloadCountDesc();
                 default -> System.out.println("Opção inválida!");
             }
         }
+    }
+
+    private void findTop10ByOrderByDownloadCountDesc() {
+        final List<BookResponseDTO> top10ByOrderByDownloadCountDesc = bookService.findTop10ByOrderByDownloadCountDesc();
+        System.out.println(top10ByOrderByDownloadCountDesc);
     }
 
     private void findAuthorByName() {

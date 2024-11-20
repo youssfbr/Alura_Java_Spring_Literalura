@@ -29,6 +29,11 @@ public class BookService implements IBookService {
         return getList(bookRepository.findBooksByLanguage(language));
     }
 
+    @Override
+    public List<BookResponseDTO> findTop10ByOrderByDownloadCountDesc() {
+        return getList(bookRepository.findTop10ByOrderByDownloadCountDesc());
+    }
+
     @NotNull
     private List<BookResponseDTO> getList(List<Book> books) {
         return books

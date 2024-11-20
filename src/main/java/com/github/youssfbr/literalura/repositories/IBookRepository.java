@@ -14,4 +14,6 @@ public interface IBookRepository extends JpaRepository<Book, Long> {
             WHERE b.languages in (:languages)""")
     List<Book> findBooksByLanguage(@Param("languages") List<String> languages);
 
+    List<Book> findTop10ByOrderByDownloadCountDesc();
+
 }
