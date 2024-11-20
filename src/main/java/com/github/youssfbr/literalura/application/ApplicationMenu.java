@@ -40,16 +40,25 @@ public class ApplicationMenu {
                 case 1 -> findBookByTitleWeb();
                 case 2 -> findAllBooks();
                 case 3 -> findAllAuthors();
-//                case 4 -> listarAutoresVivosEmUmDeterminadoAno();
+                case 4 -> findLivingAuthorsByYear();
 //                case 5 -> listarLivrosEmUmDeterminadoIdioma();
                 default -> System.out.println("Opção inválida!");
             }
         }
     }
 
+    private void findLivingAuthorsByYear() {
+        System.out.print("\nDigite o ano que deseja pesquisar: ");
+        int anoAuthor = sc.nextInt();
+        sc.nextLine();
+
+        authorService.findLivingAuthorsByYear(anoAuthor)
+                .forEach(System.out::println);
+    }
+
     private void findAllAuthors() {
         final List<AuthorResponseDTO> allAuthors = authorService.findAllAuthors();
-        allAuthors.forEach(System.out::println);
+        System.out.println(allAuthors);
     }
 
     private void findAllBooks() {
@@ -59,8 +68,8 @@ public class ApplicationMenu {
 
     private void findBookByTitleWeb() {
         Data data = getDataBooks();
-        dataService.dadosCreate(data);
-        System.out.println("\nPesquisa salva no banco de dados.");
+        data = dataService.dadosCreate(data);
+        System.out.println(data);
     }
 
     private Data getDataBooks() {

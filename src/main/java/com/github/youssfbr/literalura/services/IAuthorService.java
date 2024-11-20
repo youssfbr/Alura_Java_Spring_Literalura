@@ -7,4 +7,5 @@ import java.util.List;
 public interface IAuthorService {
 
     List<AuthorResponseDTO> findAllAuthors();
+    List<AuthorResponseDTO> findLivingAuthorsByYear(int year);
 }
