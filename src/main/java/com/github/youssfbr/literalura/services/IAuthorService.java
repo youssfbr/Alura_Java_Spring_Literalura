@@ -8,4 +8,5 @@ public interface IAuthorService {
 
     List<AuthorResponseDTO> findAllAuthors();
     List<AuthorResponseDTO> findLivingAuthorsByYear(int year);
+    AuthorResponseDTO findByName(String name);
 }

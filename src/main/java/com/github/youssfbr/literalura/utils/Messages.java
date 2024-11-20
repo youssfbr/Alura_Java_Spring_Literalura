@@ -15,6 +15,7 @@ public class Messages {
                         3 - Listar autores registrados
                         4 - Listar autores vivos em um determinado ano
                         5 - Listar livros em um determinado idioma
+                        6 - Listar autores pelo nome [BONUS]
                         -
                         0 - Sair
                         """;

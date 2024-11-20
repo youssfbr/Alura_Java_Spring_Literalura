@@ -4,6 +4,7 @@ import com.github.youssfbr.literalura.dtos.AuthorResponseDTO;
 import com.github.youssfbr.literalura.dtos.BookResponseDTO;
 import com.github.youssfbr.literalura.entities.Data;
 import com.github.youssfbr.literalura.services.*;
+import com.github.youssfbr.literalura.services.exceptions.ResourceNotFoundException;
 import com.github.youssfbr.literalura.utils.Messages;
 import org.springframework.stereotype.Service;
 
@@ -43,9 +44,22 @@ public class ApplicationMenu {
                 case 3 -> findAllAuthors();
                 case 4 -> findLivingAuthorsByYear();
                 case 5 -> findBooksByLanguage();
+                case 6 -> findAuthorByName();
                 default -> System.out.println("Opção inválida!");
             }
         }
+    }
+
+    private void findAuthorByName() {
+        try {
+            System.out.print("Digite o nome do autor: ");
+            String authorName = sc.nextLine().toLowerCase();
+            final AuthorResponseDTO byName = authorService.findByName(authorName);
+            System.out.println(byName);
+        } catch (ResourceNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     private void findBooksByLanguage() {
