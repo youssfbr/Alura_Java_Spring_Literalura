@@ -9,6 +9,7 @@ import com.github.youssfbr.literalura.utils.Messages;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -87,9 +88,17 @@ public class ApplicationMenu {
     }
 
     private void findLivingAuthorsByYear() {
-        System.out.print("\nDigite o ano que deseja pesquisar: ");
-        int anoAuthor = sc.nextInt();
-        sc.nextLine();
+        int anoAuthor;
+        do {
+            try {
+                System.out.print("\nDigite o ano que deseja pesquisar: ");
+                anoAuthor = sc.nextInt();
+                break;
+            } catch (InputMismatchException ex) {
+                sc.next();
+                System.out.println("Ano inválido! Deve ser um valor inteiro!");
+            }
+        } while (true);
 
         final List<AuthorResponseDTO> livingAuthorsByYear = authorService.findLivingAuthorsByYear(anoAuthor);
         if (!livingAuthorsByYear.isEmpty()) {
