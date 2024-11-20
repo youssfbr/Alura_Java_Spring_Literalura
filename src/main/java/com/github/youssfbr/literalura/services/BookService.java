@@ -1,13 +1,16 @@
 package com.github.youssfbr.literalura.services;
 
 import com.github.youssfbr.literalura.dtos.BookResponseDTO;
+import com.github.youssfbr.literalura.entities.Book;
 import com.github.youssfbr.literalura.repositories.IBookRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class BookService implements IBookService {
 
     private final IBookRepository bookRepository;
@@ -17,12 +20,20 @@ public class BookService implements IBookService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<BookResponseDTO> findAllBooks() {
-        return bookRepository.findAll()
+        return getList(bookRepository.findAll());
+    }
+
+    @Override
+    public List<BookResponseDTO> findBooksByLanguage(List<String> language) {
+        return getList(bookRepository.findBooksByLanguage(language));
+    }
+
+    @NotNull
+    private List<BookResponseDTO> getList(List<Book> books) {
+        return books
                 .stream()
                 .map(BookResponseDTO::new)
                 .toList();
     }
-
 }

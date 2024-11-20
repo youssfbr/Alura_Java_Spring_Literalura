@@ -7,6 +7,7 @@ import com.github.youssfbr.literalura.services.*;
 import com.github.youssfbr.literalura.utils.Messages;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,9 +42,33 @@ public class ApplicationMenu {
                 case 2 -> findAllBooks();
                 case 3 -> findAllAuthors();
                 case 4 -> findLivingAuthorsByYear();
-//                case 5 -> listarLivrosEmUmDeterminadoIdioma();
+                case 5 -> findBooksByLanguage();
                 default -> System.out.println("Opção inválida!");
             }
+        }
+    }
+
+    private void findBooksByLanguage() {
+
+        final String message = """
+                
+                Insira o idioma para realizar a busca:
+                
+                es - espanhol
+                en - inglês
+                fr - francês
+                pt - portugûes
+                
+                """;
+
+        System.out.print(message);
+        String language = sc.nextLine();
+
+        final List<BookResponseDTO> booksByLanguage = bookService.findBooksByLanguage(Collections.singletonList(language));
+        if (!booksByLanguage.isEmpty()) {
+            System.out.println(booksByLanguage);
+        } else {
+            System.out.println("Não existem livros nesse idioma no banco de dados");
         }
     }
 
@@ -52,8 +77,12 @@ public class ApplicationMenu {
         int anoAuthor = sc.nextInt();
         sc.nextLine();
 
-        authorService.findLivingAuthorsByYear(anoAuthor)
-                .forEach(System.out::println);
+        final List<AuthorResponseDTO> livingAuthorsByYear = authorService.findLivingAuthorsByYear(anoAuthor);
+        if (!livingAuthorsByYear.isEmpty()) {
+            System.out.println(livingAuthorsByYear);
+        } else {
+            System.out.println("Não existem livros desse período registrado na base de dados");
+        }
     }
 
     private void findAllAuthors() {
